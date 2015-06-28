@@ -6,7 +6,7 @@
     - prep
     - ambari-agent
 
-- hosts: ambari-server
+- hosts: ambari_server
   user: orenault
   sudo: yes
   roles:
