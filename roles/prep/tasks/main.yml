@@ -1,4 +1,6 @@
 ---
+  - name: add ambari-repo
+    get_url: url={{ ambari_repo }} dest=/etc/yum.repos.d/ambari.repo
   - name: install libselinux-python
     yum: name=libselinux-python state=present
   - name: copy hosts

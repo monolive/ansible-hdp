@@ -23,8 +23,6 @@
     mysql_db: name=ranger state=present
   - name: create & configure ranger user
     mysql_user: name=ranger password=ranger priv=*.*:ALL state=present
-  - name: copy amabri-repo in place
-    copy: src=ambari.repo dest=/etc/yum.repos.d/ambari.repo
   - name: install ambari-server
     yum: name=ambari-server state=present
 #  - name: configure ambari to use mysql
