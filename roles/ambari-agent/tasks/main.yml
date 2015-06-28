@@ -1,0 +1,14 @@
+---
+  - name: add ambari-repo
+    get_url: url={{ ambari_repo }} dest=/etc/yum.repos.d/ambari.repo
+
+  - name: install ambari
+    yum: name=ambari-agent state=present disable_gpg_check=true
+
+  - name: Add ambari server in conf file
+    lineinfile: dest=/etc/ambari-agent/conf/ambari-agent.ini regexp=^hostname= line=hostname={{ item }}
+    with_items:
+      - "{{ groups['ambari_server'] }}"
+
+  - name: start ambari-agent
+    service: name=ambari-agent state=started enabled=yes

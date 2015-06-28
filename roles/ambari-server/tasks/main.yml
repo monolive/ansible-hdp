@@ -25,5 +25,7 @@
     mysql_user: name=ranger password=ranger priv=*.*:ALL state=present
   - name: install ambari-server
     yum: name=ambari-server state=present
-#  - name: configure ambari to use mysql
-#    shell: ambari-server setup 
+  - name: configure ambari to use mysql
+    shell: /usr/sbin/ambari-server setup --jdbc-db=mysql --jdbc-driver=/usr/share/java/mysql-connector-java.jar
+  - name: configure ambari server
+    shell: /usr/sbin/ambari-server setup -s --database=mysql --databasehost={{ hostvars[groups['ambari_server'][0]]['ansible_fqdn'] }} --databaseport=3306 --databasename=ambari --databaseusername=ambari --databasepassword=ambari -j /usr/lib/jvm/jre-1.7.0-openjdk.x86_64/

@@ -4,6 +4,7 @@
   sudo: yes
   roles:
     - prep
+    - ambari-agent
 
 - hosts: ambari-server
   user: orenault
