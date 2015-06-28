@@ -1,0 +1,25 @@
+---
+  - name: install install mysql-server
+    yum: name=mysql-server state=present
+  - name: install install mysql-connector-java
+    yum: name=mysql-connector-java state=present
+  - start mysql server
+    service: name=mysqld state=started enabled=on 
+  - create oozie 
+    mysql_user: name=oozie password=oozie priv=*.*:ALL state=present
+    mysql_db: name=oozie state=present
+  - create ambari user
+    mysql_user: name=ambari password=ambari priv=*.*:ALL state=present
+    mysql_db: name=ambari state=present
+  - create hive user
+    mysql_user: name=hive password=hive priv=*.*:ALL state=present
+    mysql_db: name=hive state=present
+  - create ranger user
+    mysql_user: name=ranger password=ranger priv=*.*:ALL state=present
+    mysql_db: name=ranger state=present
+  - copy amabri-repo in place
+    copy: src=ambari.repo dest=/etc/yum.repos.d/ambari.repo
+  - install ambari-server
+    yum: name=ambari-server state=present
+#  - configure ambari to use mysql
+#    shell: ambari-server setup 

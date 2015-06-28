@@ -1,6 +1,10 @@
-[az2]
-#c2n1.cloudapp.net
-23.102.48.23
-c2n2.cloudapp.net
-c2n3.cloudapp.net
+[all]
+wandisco01.cloudapp.net
+wandisco02.cloudapp.net
+wandisco03.cloudapp.net
+wandisco04.cloudapp.net
+wandisco05.cloudapp.net
+wandisco06.cloudapp.net
 
+[ambari-server]
+wandisco01.cloudapp.net

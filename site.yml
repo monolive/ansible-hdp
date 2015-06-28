@@ -4,3 +4,9 @@
   sudo: yes
   roles:
     - prep
+
+- hosts: ambari-server
+  user: orenault
+  sudo: yes
+  roles:
+    - ambari-server
