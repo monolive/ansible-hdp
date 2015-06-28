@@ -1,0 +1,19 @@
+---
+  - name: install libselinux-python
+    yum: name=libselinux-python state=present
+  - name: copy hosts
+    copy: src=hosts dest=/etc/hosts
+  - name: switch off selinux
+    lineinfile: dest=/etc/selinux/config regexp=^SELINUX= line=SELINUX=disabled
+  - name: install java
+    yum: name=java-1.7.0-openjdk state=present
+  - name: configure java
+    copy: src=java.sh dest=/etc/profile.d/java.sh
+  - name: install ntp server
+    yum: name=ntp state=present
+  - name: switch on ntpd
+    service: name=ntpd state=started enabled=on
+  - name: switch off iptables
+    service: name=iptables state=stopped enabled=off
+  - name: reboot server
+    shell: reboot

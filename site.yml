@@ -1,0 +1,6 @@
+---
+- hosts: all
+  user: orenault
+  sudo: yes
+  roles:
+    - prep
