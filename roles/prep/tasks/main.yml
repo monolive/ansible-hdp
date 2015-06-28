@@ -5,6 +5,7 @@
     copy: src=hosts dest=/etc/hosts
   - name: switch off selinux
     lineinfile: dest=/etc/selinux/config regexp=^SELINUX= line=SELINUX=disabled
+    register: ambari_installed
   - name: install java
     yum: name=java-1.7.0-openjdk state=present
   - name: configure java
@@ -20,7 +21,12 @@
     async: 0
     poll: 0
     ignore_errors: true
+    when: ambari_installed|changed
   - name: waiting for server to come back
     local_action: wait_for host={{ inventory_hostname }}
-    state=started
+                  state=started
+                  port=22
+                  delay=15
+                  timeout=300
     sudo: false
+    when: ambari_installed|changed
