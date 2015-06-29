@@ -5,6 +5,7 @@
   roles:
     - prep
     - ambari-agent
+    - users
 
 - hosts: ambari_server
   user: orenault
