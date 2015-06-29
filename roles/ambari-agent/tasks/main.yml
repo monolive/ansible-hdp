@@ -6,9 +6,7 @@
     yum: name=ambari-agent state=present disable_gpg_check=true
 
   - name: Add ambari server in conf file
-    lineinfile: dest=/etc/ambari-agent/conf/ambari-agent.ini regexp=^hostname= line=hostname={{ item }}
-    with_items:
-      - "{{ groups['ambari_server'] }}"
+    lineinfile: dest=/etc/ambari-agent/conf/ambari-agent.ini regexp=^hostname= line=hostname={{ hostvars[groups['ambari_server'][0]]['ansible_fqdn'] }}
 
   - name: start ambari-agent
     service: name=ambari-agent state=started enabled=yes
