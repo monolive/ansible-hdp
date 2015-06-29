@@ -21,7 +21,10 @@
   - name: copy hosts
     template: src=hosts.j2 dest=/etc/hosts
 
+# Disable hugepage
   - name: disable hugepage
+    shell: echo never > /sys/kernel/mm/redhat_transparent_hugepage/enabled
+  - name: disable hugepage permanently
     lineinfile: dest=/boot/grub/grub.conf
                backup=True
                backrefs=True
@@ -29,17 +32,26 @@
                regexp='(^\s+kernel(\s+(?!transparent_hugepage=never)[\w=/\-\.]+)*)\s*$'
                line='\1 transparent_hugepage=never'
 
-  - name: switch off selinux
+# Disable selinux
+  - name: disable selinux 
+    shell: setenforce 0
+  - name: switch off selinux permanently
     lineinfile: dest=/etc/selinux/config regexp=^SELINUX= line=SELINUX=disabled
     register: ambari_installed
+
+# Install and configure Java
   - name: install java
     yum: name=java-1.7.0-openjdk state=present
   - name: configure java
     copy: src=java.sh dest=/etc/profile.d/java.sh
+
+# Install & configure ntp
   - name: install ntp server
     yum: name=ntp state=present
   - name: switch on ntpd
     service: name=ntpd state=started enabled=on
+
+# Disable iptables
   - name: switch off iptables
     service: name=iptables state=stopped enabled=off
   - name: restart machine
