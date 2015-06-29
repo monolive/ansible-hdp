@@ -10,7 +10,7 @@
   - name: set fqdn in network file
     lineinfile: dest=/etc/sysconfig/network regexp=^HOSTNAME= line=HOSTNAME={{ item }}
     with_items: fqdn.stdout_lines
-    regiser: done
+    register: done
   - name: set fqdn 
     shell: hostname {{ item }}
     with_items: fqdn.stdout_lines
