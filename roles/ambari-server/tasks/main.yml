@@ -1,5 +1,5 @@
 ---
-  - name: install install mysql-server
+  - name: install mysql-server
     yum: name=mysql-server state=present
   - name: install install mysql-connector-java
     yum: name=mysql-connector-java state=present
@@ -7,6 +7,9 @@
     service: name=mysqld state=started enabled=on 
   - name: install python binding for mysql
     yum: name=MySQL-python state=present
+
+# Create database & user
+# TODO: move to variable and split to DB server module
   - name: create & configure oozie DB
     mysql_db: name=oozie state=present
   - name: create & configure oozie user
@@ -14,7 +17,7 @@
   - name: create & configure ambari DB
     mysql_db: name=ambari state=present
   - name: create & configure ambari user
-    mysql_user: name=ambari password=ambari priv=*.*:ALL state=present
+    mysql_user: name=ambari password=ambari priv=*.*:ALL host={{ hostvars[groups['ambari_server'][0]]['ansible_fqdn'] }} state=present
   - name: create & configure hive DB
     mysql_db: name=hive state=present
   - name: create & configure hive user
@@ -23,9 +26,25 @@
     mysql_db: name=ranger state=present
   - name: create & configure ranger user
     mysql_user: name=ranger password=ranger priv=*.*:ALL state=present
+
+# install & configure ambari-server 
   - name: install ambari-server
     yum: name=ambari-server state=present
+    register: ambari_installed
+  - name: import ambari-server schema
+    mysql_db: name=ambari state=import target=/var/lib/ambari-server/resources/Ambari-DDL-MySQL-CREATE.sql
+    when: ambari_installed|changed
   - name: configure ambari to use mysql
     shell: /usr/sbin/ambari-server setup --jdbc-db=mysql --jdbc-driver=/usr/share/java/mysql-connector-java.jar
+    when: ambari_installed|changed
   - name: configure ambari server
     shell: /usr/sbin/ambari-server setup -s --database=mysql --databasehost={{ hostvars[groups['ambari_server'][0]]['ansible_fqdn'] }} --databaseport=3306 --databasename=ambari --databaseusername=ambari --databasepassword=ambari -j /usr/lib/jvm/jre-1.7.0-openjdk.x86_64/
+    when: ambari_installed|changed
+
+# Restart ambari server has status return rubbish value
+  - name: start ambari server
+    service: name=ambari-server state=restarted enabled=on
+    register: ambari_up
+  - name: check if ambari server is up
+    wait_for: state=started port=8080 delay=15
+    when: ambari_up|changed
