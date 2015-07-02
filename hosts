@@ -1,10 +1,7 @@
 [all]
-wandisco01.cloudapp.net
-wandisco02.cloudapp.net
-wandisco03.cloudapp.net
-wandisco04.cloudapp.net
-wandisco05.cloudapp.net
-wandisco06.cloudapp.net
+west-hack1.cloudapp.net
+west-hack2.cloudapp.net
+west-hack3.cloudapp.net
 
 [ambari_server]
-wandisco01.cloudapp.net
+west-hack1.cloudapp.net

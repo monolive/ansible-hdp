@@ -1,6 +1,6 @@
 ---
 - hosts: all
-  user: orenault
+  user: hackathon
   sudo: yes
   roles:
     - prep
@@ -8,7 +8,7 @@
     - users
 
 - hosts: ambari_server
-  user: orenault
+  user: hackathon
   sudo: yes
   roles:
     - ambari-server
