@@ -44,7 +44,7 @@
   - name: install java
     yum: name=java-1.7.0-openjdk state=present
   - name: configure java
-    copy: src=java.sh dest=/etc/profile.d/java.sh
+    template: src=java.sh.j2 dest=/etc/profile.d/java.sh
 
 # Install & configure ntp
   - name: install ntp server
