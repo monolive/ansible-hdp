@@ -1,5 +1,6 @@
 # repos
-ambari_repo: http://public-repo-1.hortonworks.com/HDP-LABS/Projects/Dal-Preview/ambari/2.1.0-6/centos6/ambari.repo
+ambari_repo : http://public-repo-1.hortonworks.com/HDP-LABS/Projects/Dal-Preview/ambari/2.1.0-6/centos6/ambari.repo
+java_home : /usr/lib/jvm/jre-1.7.0-openjdk.x86_64/
 
 # A common group shared by services.
 HADOOP_GROUP : hadoop
