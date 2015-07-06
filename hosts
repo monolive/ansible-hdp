@@ -1,12 +1,12 @@
 [all]
 orenault-kylin01.cloud.hortonworks.com
-#orenault-kylin02.cloud.hortonworks.com
+orenault-kylin02.cloud.hortonworks.com
 orenault-kylin03.cloud.hortonworks.com
-#orenault-kylin04.cloud.hortonworks.com
-#orenault-kylin05.cloud.hortonworks.com
-#orenault-kylin06.cloud.hortonworks.com
-#orenault-kylin07.cloud.hortonworks.com
-#orenault-kylin08.cloud.hortonworks.com
+orenault-kylin04.cloud.hortonworks.com
+orenault-kylin05.cloud.hortonworks.com
+orenault-kylin06.cloud.hortonworks.com
+orenault-kylin07.cloud.hortonworks.com
+orenault-kylin08.cloud.hortonworks.com
 
 [ambari_server]
 orenault-kylin01.cloud.hortonworks.com
