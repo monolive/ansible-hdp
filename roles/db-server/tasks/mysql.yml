@@ -1,12 +1,10 @@
 ---
   - name: install mysql-server
     yum: name=mysql-server state=present
-  - name: install install mysql-connector-java
-    yum: name=mysql-connector-java state=present
-  - name: start mysql server
-    service: name=mysqld state=started enabled=on 
-  - name: install python binding for mysql
-    yum: name=MySQL-python state=present
+  - name: change max allowed packet
+    lineinfile: dest=/etc/my.cnf insertafter=^symbolic-links line=max_allowed_packet=32M
+  - name: restart mysql-server
+    service: name=mysqld state=started enabled=on
 
 # Create database & user
 # TODO: move to variable and split to DB server module
