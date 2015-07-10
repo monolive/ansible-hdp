@@ -1,0 +1,50 @@
+{
+  "blueprint" : "HAcluster",
+  "default_password" : "default",
+  "host_groups" :[
+    {
+      "name" : "host_group_1",
+      "hosts" : [
+        {
+          "fqdn" : "orenault-test01.cloud.hortonworks.com"
+        }
+      ]
+    },
+    {
+      "name" : "host_group_2",
+      "hosts" : [
+        {
+          "fqdn" : "orenault-test03.cloud.hortonworks.com"
+        }
+      ]
+    },
+    {
+      "name" : "host_group_3",
+      "hosts" : [
+        {
+          "fqdn" : "orenault-test02.cloud.hortonworks.com"
+        }
+      ]
+    },
+    {
+      "name" : "host_group_4",
+      "hosts" : [
+        {
+          "fqdn" : "orenault-test04.cloud.hortonworks.com"
+        },
+        {
+          "fqdn" : "orenault-test05.cloud.hortonworks.com"
+        },
+        {
+          "fqdn" : "orenault-test06.cloud.hortonworks.com"
+        },
+        {
+          "fqdn" : "orenault-test07.cloud.hortonworks.com"
+        },
+        {
+          "fqdn" : "orenault-test08.cloud.hortonworks.com"
+        }
+      ]
+    }
+  ]
+}

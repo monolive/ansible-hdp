@@ -8,6 +8,7 @@
       - mysql-connector-java
       - mysql
       - MySQL-python
+      - python-httplib2
     when: hostvars[groups['db_server'][0]]['db_flavour'] == "mysql"
 
   - name: install ambari-server
@@ -34,3 +35,65 @@
   - name: check if ambari server is up
     wait_for: state=started port=8080 delay=15
     when: ambari_up|changed
+
+  - name: get register hosts
+    uri: 
+      url: http://{{ hostvars[groups['ambari_server'][0]]['ansible_fqdn'] }}:8080/api/v1/hosts
+      method: GET
+      user: admin
+      password: admin
+      HEADER_X-Requested-By: ambari
+      force_basic_auth: yes
+      return_content: yes
+
+  - name: change HDP repo URL
+    uri: 
+      url: http://{{ hostvars[groups['ambari_server'][0]]['ansible_fqdn'] }}:8080/api/v1/stacks/HDP/versions/{{ hdp_stack }}/operating_systems/redhat6/repositories/HDP-{{ hdp_stack }}
+      method: PUT
+      user: admin
+      password: admin
+      HEADER_X-Requested-By: ambari
+      body: "{{ lookup('template', '../templates/hdp_repo_body.json.j2') }}" # adding ../templates as a hack for ansible bug
+      force_basic_auth: yes
+      return_content: yes
+      body_format: json
+ 
+  - name: change HDP-UTIL repo URL
+    uri: 
+      url: http://{{ hostvars[groups['ambari_server'][0]]['ansible_fqdn'] }}:8080/api/v1/stacks/HDP/versions/{{ hdp_stack }}/operating_systems/redhat6/repositories/HDP-UTILS-{{ hdp_utils }}
+      method: PUT
+      user: admin
+      password: admin
+      HEADER_X-Requested-By: ambari
+      body: "{{ lookup('template', '../templates/hdp_util_repo_body.json.j2') }}" # aadding ../templates as a hack for ansible bug
+      force_basic_auth: yes
+      return_content: yes
+      body_format: json
+ 
+ # I've updated my uri module from the dev version as it was failing out when using 1.9.2 
+ # https://raw.githubusercontent.com/ansible/ansible-modules-core/devel/network/basics/uri.py
+  - name: register blueprint
+    uri: 
+      url: http://{{ hostvars[groups['ambari_server'][0]]['ansible_fqdn'] }}:8080/api/v1/blueprints/{{ cluster_name }}
+      method: POST
+      user: admin
+      password: admin
+      HEADER_X-Requested-By: ambari
+      body: "{{ lookup('template', 'hdp-2.3-hbase-noha.json.j2') }}" 
+      force_basic_auth: yes
+      return_content: yes
+      body_format: json
+      status_code: 201
+ 
+  - name: register host mapping
+    uri: 
+      url: http://{{ hostvars[groups['ambari_server'][0]]['ansible_fqdn'] }}:8080/api/v1/blueprints/{{ cluster_name }}
+      method: POST
+      user: admin
+      password: admin
+      HEADER_X-Requested-By: ambari
+      body: "{{ lookup('file', 'hdp2.3-blueprint.json') }}" 
+      force_basic_auth: yes
+      return_content: yes
+      body_format: json
+      status_code: 201

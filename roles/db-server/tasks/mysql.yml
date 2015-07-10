@@ -1,6 +1,10 @@
 ---
   - name: install mysql-server
-    yum: name=mysql-server state=present
+    yum: name={{ item }} state=present
+    with_items:
+      - mysql-server
+      - MySQL-python
+
   - name: change max allowed packet
     lineinfile: dest=/etc/my.cnf insertafter=^symbolic-links line=max_allowed_packet=32M
   - name: restart mysql-server
