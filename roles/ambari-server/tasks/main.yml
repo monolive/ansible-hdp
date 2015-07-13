@@ -91,9 +91,11 @@
 #    wait_for: ...
 
 # Opened a bug for both issues - eg password is not set for hive / oozie 
-#  - name: Fix blueprint issues 
-
-#  /var/lib/ambari-server/resources/scripts/configs.sh
+  - name: Fix blueprint issues
+    shell: /var/lib/ambari-server/resources/scripts/configs.sh set {{ hostvars[groups['ambari_server'][0]]['ansible_fqdn'] }} {{ cluster_name }} oozie-site oozie.service.JPAService.jdbc.url jdbc:mysql:${oozie.data.dir}/${oozie.db.schema.name}-db;create=true
+    shell: /var/lib/ambari-server/resources/scripts/configs.sh set {{ hostvars[groups['ambari_server'][0]]['ansible_fqdn'] }} {{ cluster_name }} oozie-site oozie.service.JPAService.jdbc.password {{ oozie_password }}
+    # TODO : Double check how to specify to hive-seite.xml in hive-server
+    shell: /var/lib/ambari-server/resources/scripts/configs.sh set {{ hostvars[groups['ambari_server'][0]]['ansible_fqdn'] }} {{ cluster_name }} hive-site javax.jdo.option.ConnectionPassWord {{ hive_password }}
 
 
 # I've updated my uri module from the dev version as it was failing out when using 1.9.2 
