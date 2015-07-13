@@ -1,0 +1,40 @@
+{
+  "blueprint" : "{{ cluster_name }}",
+  "default_password" : "default",
+  "host_groups" :[
+    {
+      "name" : "host_group_1",
+      "hosts" : [
+        {
+          "fqdn" : "{{ hostvars[groups['master1'][0]]['ansible_fqdn'] }}"
+        }
+      ]
+    },
+    {
+      "name" : "host_group_2",
+      "hosts" : [
+        {
+          "fqdn" : "{{ hostvars[groups['master2'][0]]['ansible_fqdn'] }}"
+        }
+      ]
+    },
+    {
+      "name" : "host_group_3",
+      "hosts" : [
+        {
+          "fqdn" : "{{ hostvars[groups['master3'][0]]['ansible_fqdn'] }}"
+        }
+      ]
+    },
+    {
+      "name" : "host_group_4",
+      "hosts" : [
+{% for host in groups['datanode'] %}
+        {
+          "fqdn" : "{{ hostvars[host].ansible_fqdn }}""
+        },
+{% endfor %}
+      ]
+    }
+  ]
+}
