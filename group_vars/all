@@ -7,12 +7,12 @@ hdp_util_repo : http://repo.cloud.hortonworks.com/HDP-UTILS-1.1.0.20/repos/cento
 hdp_stack: 2.3
 hdp_utils: 1.1.0.20
 
-cluster_name: hdptest
+cluster_name: hdptest4
 
 java_home : /usr/lib/jvm/jre-1.7.0-openjdk.x86_64/
 
-log_folder: /var/log/hadoop
-pid_folder: /var/run/hadoop
+#log_folder: /var/log/hadoop
+#pid_folder: /var/run/hadoop
 
 
 # A common group shared by services.

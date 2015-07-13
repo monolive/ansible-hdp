@@ -11,26 +11,26 @@ orenault-test08.cloud.hortonworks.com
 [ambari_server]
 orenault-test01.cloud.hortonworks.com
 
-[master1]
+#[master1]
 # Hive & Friends / Oozie / AMS / ZK + clients 
 # Typically installed w/ ambari server
-orenault-test01.cloud.hortonworks.com
+#orenault-test01.cloud.hortonworks.com
 
-[master2]
+#[master2]
 # Secondary Namenode / Resource Manager / History Server / Timeline Server / ZK
-orenault-test02.cloud.hortonworks.com
+#orenault-test02.cloud.hortonworks.com
 
-[master3]
+#[master3]
 # Namenode / HBase Master / ZK
-orenault-test03.cloud.hortonworks.com
+#orenault-test03.cloud.hortonworks.com
 
 [db_server]
 orenault-test03.cloud.hortonworks.com
 
-[datanodes]
-orenault-test04.cloud.hortonworks.com
-orenault-test05.cloud.hortonworks.com
-orenault-test06.cloud.hortonworks.com
-orenault-test07.cloud.hortonworks.com
-orenault-test08.cloud.hortonworks.com
+#[datanodes]
+#orenault-test04.cloud.hortonworks.com
+#orenault-test05.cloud.hortonworks.com
+#orenault-test06.cloud.hortonworks.com
+#orenault-test07.cloud.hortonworks.com
+#orenault-test08.cloud.hortonworks.com
 

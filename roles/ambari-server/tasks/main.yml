@@ -2,7 +2,7 @@
 
 
 # install & configure ambari-server 
-  - name: install mysql related package
+  - name: install mysql related packages
     yum: name={{ item }} state=present
     with_items:
       - mysql-connector-java
@@ -72,28 +72,52 @@
  
  # I've updated my uri module from the dev version as it was failing out when using 1.9.2 
  # https://raw.githubusercontent.com/ansible/ansible-modules-core/devel/network/basics/uri.py
-  - name: register blueprint
-    uri: 
-      url: http://{{ hostvars[groups['ambari_server'][0]]['ansible_fqdn'] }}:8080/api/v1/blueprints/{{ cluster_name }}
-      method: POST
-      user: admin
-      password: admin
-      HEADER_X-Requested-By: ambari
-      body: "{{ lookup('template', 'hdp-2.3-hbase-noha.json.j2') }}" 
-      force_basic_auth: yes
-      return_content: yes
-      body_format: json
-      status_code: 201
- 
-  - name: register host mapping
-    uri: 
-      url: http://{{ hostvars[groups['ambari_server'][0]]['ansible_fqdn'] }}:8080/api/v1/blueprints/{{ cluster_name }}
-      method: POST
-      user: admin
-      password: admin
-      HEADER_X-Requested-By: ambari
-      body: "{{ lookup('file', 'hdp2.3-blueprint.json') }}" 
-      force_basic_auth: yes
-      return_content: yes
-      body_format: json
-      status_code: 201
+  - name: copy blueprint
+    copy: src=../../../blueprints/hdp-2.3-hbase-noha.json dest=/tmp/blueprint.json
+    register: blueprint
+
+  - name: copy host-mapping
+    template: src=../../../blueprints/host-mapping.json.j2 dest=/tmp/host-mapping.json
+    register: hostmap
+
+  - name: copy template script
+    template: src=register_launch.sh.j2 dest=/tmp/register_launch.sh mode=0755 
+    when: blueprint|changed or hostmap|changed
+
+  - name: register blueprint & hostmap
+    shell: /tmp/register_launch.sh
+    when: blueprint|changed or hostmap|changed
+
+#  - name: wait for installation to complete
+#    wait_for: ...
+
+# Opened a bug for both issues - eg password is not set for hive / oozie 
+#  - name: Fix blueprint issues 
+
+#  /var/lib/ambari-server/resources/scripts/configs.sh
+
+#  - name: register blueprint
+#    uri: 
+#      url: http://{{ hostvars[groups['ambari_server'][0]]['ansible_fqdn'] }}:8080/api/v1/blueprints/{{ cluster_name }}
+#      method: POST
+#      user: admin
+#      password: admin
+#      HEADER_X-Requested-By: ambari
+#      body: "{{ lookup('file', '../../../blueprints/hdp-2.3-hbase-noha.json') }}" 
+#      force_basic_auth: yes
+#      return_content: yes
+#      body_format: json
+#      status_code: 201
+
+#  - name: register host mapping
+#    uri: 
+#      url: http://{{ hostvars[groups['ambari_server'][0]]['ansible_fqdn'] }}:8080/api/v1/blueprints/{{ cluster_name }}
+#      method: POST
+#      user: admin
+#      password: admin
+#      HEADER_X-Requested-By: ambari
+#      body: "{{ lookup('file', '../../../blueprints/host-mapping.json') }}" 
+#      force_basic_auth: yes
+#      return_content: yes
+#      body_format: json
+#      status_code: 201

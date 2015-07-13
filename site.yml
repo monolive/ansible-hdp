@@ -1,17 +1,17 @@
 ---
-#- hosts: all
-#  user: root
-#  sudo: yes
-#  roles:
-#    - prep
-#    - ambari-agent
-#    - users
+- hosts: all
+  user: root
+  sudo: yes
+  roles:
+    - prep
+    - ambari-agent
+    - users
 
-#- hosts: db_server
-#  user: root
-#  sudo: yes
-#  roles:
-#    - db-server
+- hosts: db_server
+  user: root
+  sudo: yes
+  roles:
+    - db-server
 
 - hosts: ambari_server
   user: root
