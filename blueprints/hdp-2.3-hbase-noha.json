@@ -1206,6 +1206,36 @@
           "name" : "ZOOKEEPER_CLIENT"
         },
         {
+          "name" : "OOZIE_CLIENT"
+        },
+        {
+          "name" : "HBASE_CLIENT"
+        },
+        {
+          "name" : "HCAT"
+        },
+        {
+          "name" : "METRICS_MONITOR"
+        },
+        {
+          "name" : "TEZ_CLIENT"
+        },
+        {
+          "name" : "HDFS_CLIENT"
+        },
+        {
+          "name" : "HIVE_CLIENT"
+        },
+        {
+          "name" : "NODEMANAGER"
+        },
+        {
+          "name" : "YARN_CLIENT"
+        },
+        {
+          "name" : "MAPREDUCE2_CLIENT"
+        },
+        {
           "name" : "PIG"
         },
         {
@@ -1221,25 +1251,10 @@
           "name" : "HIVE_SERVER"
         },
         {
-          "name" : "HDFS_CLIENT"
-        },
-        {
           "name" : "OOZIE_SERVER"
         },
         {
-          "name" : "YARN_CLIENT"
-        },
-        {
           "name" : "METRICS_COLLECTOR"
-        },
-        {
-          "name" : "METRICS_MONITOR"
-        },
-        {
-          "name" : "MAPREDUCE2_CLIENT"
-        },
-        {
-          "name" : "TEZ_CLIENT"
         },
         {
           "name" : "WEBHCAT_SERVER"
@@ -1302,55 +1317,6 @@
     },
     {
       "name" : "host_group_4",
-      "configurations" : [ ],
-      "components" : [
-        {
-          "name" : "ZOOKEEPER_CLIENT"
-        },
-        {
-          "name" : "PIG"
-        },
-        {
-          "name" : "HBASE_REGIONSERVER"
-        },
-        {
-          "name" : "OOZIE_CLIENT"
-        },
-        {
-          "name" : "HBASE_CLIENT"
-        },
-        {
-          "name" : "HCAT"
-        },
-        {
-          "name" : "METRICS_MONITOR"
-        },
-        {
-          "name" : "TEZ_CLIENT"
-        },
-        {
-          "name" : "HDFS_CLIENT"
-        },
-        {
-          "name" : "HIVE_CLIENT"
-        },
-        {
-          "name" : "NODEMANAGER"
-        },
-        {
-          "name" : "YARN_CLIENT"
-        },
-        {
-          "name" : "MAPREDUCE2_CLIENT"
-        },
-        {
-          "name" : "DATANODE"
-        }
-      ],
-      "cardinality" : "1"
-    },
-    {
-      "name" : "host_group_5",
       "configurations" : [ ],
       "components" : [
         {
