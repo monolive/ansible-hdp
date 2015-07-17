@@ -116,19 +116,23 @@
 
 # CHeck if installation is completed. It should check for 50min before failing
   - name: wait for installation to complete
-    uri:
-      url: http://{{ hostvars[groups['ambari_server'][0]]['ansible_fqdn'] }}:8080/api/v1/clusters/{{ cluster_name }}
-      method: GET
-      user: admin
-      password: admin
-      HEADER_X-Requested-By: ambari
-      HEADER_Content-Type: "application/json"
-      force_basic_auth: yes
-      return_content: yes
-    register: installation_completed
-    until: installation_completed.content.find('INSTALLED')
-    retries: 10
-    delay: 300
+    shell: "curl -s -u admin:admin -i -H 'X-Requested-By: ambari' -X GET http://{{ hostvars[groups['ambari_server'][0]]['ansible_fqdn'] }}:8080/api/v1/clusters/hdptest4/services\\?ServiceInfo/state=INSTALLING"
+
+# Move back to curl as I need to parse output
+# - name: wait for installation to complete
+#   uri:
+#     url: http://{{ hostvars[groups['ambari_server'][0]]['ansible_fqdn'] }}:8080/api/v1/clusters/{{ cluster_name }}
+#     method: GET
+#     user: admin
+#     password: admin
+#     HEADER_X-Requested-By: ambari
+#     HEADER_Content-Type: "application/json"
+#     force_basic_auth: yes
+#     return_content: yes
+#   register: installation_completed
+#   until: installation_completed.content.find('INSTALLED')
+#   retries: 10
+#   delay: 300
 
 # Currently blueprint don't export - oozie pwd / oozie URL so re-adding them
 # TODO : Add a when condition so we are not overwriting values
@@ -222,9 +226,9 @@
 # TODO : Add a when condition so we are not restarting if value have not been updated
   - name: stop oozie service
     shell: "curl -s -u admin:admin -i -H 'X-Requested-By: ambari' -X PUT -d '{\"RequestInfo\": {\"context\" :\"Stop HIVE via REST\"}, \"Body\": {\"ServiceInfo\": {\"state\": \"INSTALLED\"}}}' http://{{ hostvars[groups['ambari_server'][0]]['ansible_fqdn'] }}:8080/api/v1/clusters/{{ cluster_name }}/services/HIVE | awk -F'\\\"' '/href/ {print $4}'"
-    register: oozie_output
+    register: hive_output
 
-  - name: wait for oozie to stop
+  - name: wait for HIVE to stop
     uri:
       url: "{{ item }}"
       method: GET
@@ -241,7 +245,7 @@
     when: hive_output is defined
     with_items: hive_output.stdout_lines
 
-  - name: start oozie service
+  - name: start HIVE service
     shell: "curl -s -u admin:admin -i -H 'X-Requested-By: ambari' -X PUT -d '{\"RequestInfo\": {\"context\" :\"Start HIVE via REST\"}, \"Body\": {\"ServiceInfo\": {\"state\": \"STARTED\"}}}' http://{{ hostvars[groups['ambari_server'][0]]['ansible_fqdn'] }}:8080/api/v1/clusters/{{ cluster_name }}/services/HIVE | awk -F'\\\"' '/href/ {print $4}'"
 
   - name: start all services
