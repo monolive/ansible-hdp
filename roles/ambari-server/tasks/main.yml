@@ -115,8 +115,16 @@
 #      status_code: 201
 
 # CHeck if installation is completed. It should check for 50min before failing
+  - name: copy script to check completed installation
+    template: src=monitor_installation.sh.j2 dest=/tmp/monitor_installation.sh mode=0755
+
   - name: wait for installation to complete
-    shell: "curl -s -u admin:admin -i -H 'X-Requested-By: ambari' -X GET http://{{ hostvars[groups['ambari_server'][0]]['ansible_fqdn'] }}:8080/api/v1/clusters/hdptest4/services\\?ServiceInfo/state=INSTALLING"
+    shell: /tmp/monitor_installation.sh
+    register: complete_installation
+    until: complete_installation.content.find('COMPLETED')
+    retries: 30
+    delay: 60
+
 
 # Move back to curl as I need to parse output
 # - name: wait for installation to complete
