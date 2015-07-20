@@ -5,6 +5,7 @@ Currently, it's working with single DB - MySQL.
 
 # How To 
 Configure repositories and other variables in group_vars/all 
+
 Add your blueprint in blueprints folder
 
 # TODO
