@@ -1,6 +1,8 @@
 # ansible-hdp
 Ansible recipe to install HDP ( Hortonworks Data Platform) 
 
+It has been tested on Azure / OpenStack.
+
 Currently, it's working with single DB - MySQL. The blueprint are not exporting password. The installation will initially fail but it will be overwritten following the installation. 
 
 # How To 
