@@ -1,6 +1,6 @@
 ---
 - hosts: all
-  user: root
+  user: orenault
   sudo: yes
   roles:
     - prep
@@ -8,13 +8,13 @@
     - users
 
 - hosts: db_server
-  user: root
+  user: orenault
   sudo: yes
   roles:
     - db-server
 
 - hosts: ambari_server
-  user: root
+  user: orenault
   sudo: yes
   roles:
     - ambari-server

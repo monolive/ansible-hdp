@@ -1,36 +1,16 @@
 [all]
-orenault-test01.cloud.hortonworks.com
-orenault-test02.cloud.hortonworks.com
-orenault-test03.cloud.hortonworks.com
-orenault-test04.cloud.hortonworks.com
-orenault-test05.cloud.hortonworks.com
-orenault-test06.cloud.hortonworks.com
-orenault-test07.cloud.hortonworks.com
-orenault-test08.cloud.hortonworks.com
+centrica01.cloudapp.net
+centrica02.cloudapp.net
+centrica03.cloudapp.net
+centrica04.cloudapp.net
+centrica05.cloudapp.net
+centrica06.cloudapp.net
+centrica07.cloudapp.net
+centrica08.cloudapp.net
 
 [ambari_server]
-orenault-test01.cloud.hortonworks.com
-
-#[master1]
-# Hive & Friends / Oozie / AMS / ZK + clients 
-# Typically installed w/ ambari server
-#orenault-test01.cloud.hortonworks.com
-
-#[master2]
-# Secondary Namenode / Resource Manager / History Server / Timeline Server / ZK
-#orenault-test02.cloud.hortonworks.com
-
-#[master3]
-# Namenode / HBase Master / ZK
-#orenault-test03.cloud.hortonworks.com
+centrica01.cloudapp.net
 
 [db_server]
-orenault-test03.cloud.hortonworks.com
-
-#[datanodes]
-#orenault-test04.cloud.hortonworks.com
-#orenault-test05.cloud.hortonworks.com
-#orenault-test06.cloud.hortonworks.com
-#orenault-test07.cloud.hortonworks.com
-#orenault-test08.cloud.hortonworks.com
+centrica03.cloudapp.net
 
