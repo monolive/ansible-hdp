@@ -1,14 +1,13 @@
 #!/bin/bash
 # script checking if the installation is completed
-# it will wait for 30 min
 
 
 installing=0
-for i in `curl -s -u admin:admin -i -H 'X-Requested-By: ambari' -X GET http://\`hostname -f\`:8080/api/v1/clusters/hdptest4/services | awk -F "\"" '/service_name/ {print $4}'`;
+for i in `curl -s -u admin:admin -i -H 'X-Requested-By: ambari' -X GET http://{{ hostvars[groups['ambari_server'][0]]['ansible_fqdn'] }}:8080/api/v1/clusters/{{ cluster_name }}/requests | awk -F ":" '/href/ {print $2}'`;
 do
   echo $i;
-  curl -s -u admin:admin -i -H 'X-Requested-By: ambari' -X GET http://`hostname -f`:8080/api/v1/clusters/hdptest4/services/${i} | grep "INSTALLING";
-  if [ $? -eq 0 ] ;
+  curl -s -u admin:admin -i -H 'X-Requested-By: ambari' -X GET http://{{ hostvars[groups['ambari_server'][0]]['ansible_fqdn'] }}:8080/api/v1/clusters/{{ cluster_name }}/requests/${i} | egrep "INSTALLED|FAILED";
+  if [ $? -eq 1 ] ;
   then
     installing=1
   fi

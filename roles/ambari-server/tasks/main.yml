@@ -1,5 +1,7 @@
 ---
-
+# required for python-httplib2
+  - name: copy epel.repo
+    copy: src=epel.repo dest=/etc/yum.repos.d/epel.repo
 
 # install & configure ambari-server 
   - name: install different packages Mysql related + curl
@@ -121,7 +123,7 @@
   - name: wait for installation to complete
     shell: /tmp/monitor_installation.sh
     register: complete_installation
-    until: complete_installation.content.find('COMPLETED')
+    until: complete_installation.stdout.find('COMPLETED')
     retries: 30
     delay: 60
 
