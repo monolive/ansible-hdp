@@ -1,6 +1,6 @@
 ---
   - name: add ambari-repo
-    get_url: url={{ ambari_repo }} dest=/etc/yum.repos.d/ambari.repo
+    template: src=ambari.repo.j2 dest=/etc/yum.repos.d/ambari.repo
 
   - name: install ambari
     yum: name=ambari-agent state=present disable_gpg_check=true
