@@ -8,7 +8,9 @@ Currently, it's working with single DB - MySQL. The blueprint are not exporting 
 # How To 
 Configure repositories and other variables in group_vars/all 
 
-Add your blueprint in blueprints folder
+Add your blueprint in blueprints folder. You will also need to modify the host-mapping section to reflect your env.
+
+In case of failure, you may want to delete ambari-server package / delete /tmp/blueprint.json and /tmp/host-map.json as if they are present steps are skipped
 
 # TODO
 - Implement postgresql
