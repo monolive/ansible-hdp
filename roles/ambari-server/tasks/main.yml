@@ -123,9 +123,11 @@
   - name: wait for installation to complete
     shell: /tmp/monitor_installation.sh
     register: complete_installation
-    until: complete_installation.stdout.find('COMPLETED')
+    until: complete_installation.stdout.find("INSTALL_DONE") != -1
     retries: 30
     delay: 60
+
+  - debug: var=complete_installation
 
 
 # Move back to curl as I need to parse output

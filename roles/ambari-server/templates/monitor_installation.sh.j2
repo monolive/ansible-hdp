@@ -1,18 +1,22 @@
 #!/bin/bash
 # script checking if the installation is completed
 
-
-installing=0
-for i in `curl -s -u admin:admin -i -H 'X-Requested-By: ambari' -X GET http://{{ hostvars[groups['ambari_server'][0]]['ansible_fqdn'] }}:8080/api/v1/clusters/{{ cluster_name }}/requests | awk -F ":" '/href/ {print $2}'`;
+while true
 do
-  echo $i;
-  curl -s -u admin:admin -i -H 'X-Requested-By: ambari' -X GET http://{{ hostvars[groups['ambari_server'][0]]['ansible_fqdn'] }}:8080/api/v1/clusters/{{ cluster_name }}/requests/${i} | egrep "INSTALLED|FAILED";
-  if [ $? -eq 1 ] ;
+  installing=0
+  for i in `curl -s -u admin:admin -i -H 'X-Requested-By: ambari' -X GET http://{{ hostvars[groups['ambari_server'][0]]['ansible_fqdn'] }}:8080/api/v1/clusters/{{ cluster_name }}/requests | awk -F ":" '/id/ {print $NF}'`;
+  do
+    #echo $i;
+    curl -s -u admin:admin -i -H 'X-Requested-By: ambari' -X GET http://{{ hostvars[groups['ambari_server'][0]]['ansible_fqdn'] }}:8080/api/v1/clusters/{{ cluster_name }}/requests/${i} | egrep "COMPLETED|FAILED";
+    if [ $? -eq 1 ] ;
+    then
+      installing=1
+    fi
+  done
+  if [ $installing -eq 0 ]
   then
-    installing=1
+    echo INSTALL_DONE
+    break
   fi
+  sleep 5
 done
-if [ $installing -eq 0 ]
-then
-  echo INSTALLED
-fi
