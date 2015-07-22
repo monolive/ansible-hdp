@@ -1,6 +1,6 @@
 # repos
-ambari_repo : http://public-repo-1.hortonworks.com/HDP-LABS/Projects/Dal-Preview/ambari/2.1.0-7/centos6/
-hdp_repo : http://public-repo-1.hortonworks.com/HDP-LABS/Projects/Dal-Preview/2.3.0.0-7/centos6/
+ambari_repo : http://public-repo-1.hortonworks.com/ambari/centos6/2.x/updates/2.1.0
+hdp_repo : http://public-repo-1.hortonworks.com/HDP/centos6/2.x/updates/2.3.0.0
 hdp_util_repo : http://public-repo-1.hortonworks.com/HDP-UTILS-1.1.0.20/repos/centos6
 
 # Keep same format as official repo
