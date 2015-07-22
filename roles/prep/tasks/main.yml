@@ -42,7 +42,11 @@
 
 # Install and configure Java
   - name: install java
-    yum: name=java-1.7.0-openjdk state=present
+    yum: name={{ item }} state=present
+    with_items: 
+      - java-1.7.0-openjdk
+      - java-1.7.0-openjdk-devel
+
   - name: configure java
     template: src=java.sh.j2 dest=/etc/profile.d/java.sh
 
