@@ -55,11 +55,19 @@ SQOOP_UID : 1008
 AMBARIQA_USER : ambari-qa
 AMBARIQA_UID : 1009
 
-# nagios user
-NAGIOS_USER : nagios
-NAGIOS_UID : 1010
+# falcon user
+FALCON_USER : falcon
+FALCON_UID : 1010
 
 # hcat user
 HCAT_USER : hcat
 HCAT_UID : 1011
+
+# ams user
+AMS_USER : ams
+AMS_UID : 1012
+
+# tez user
+TEZ_USER : tez
+TEZ_UID : 1013
 
