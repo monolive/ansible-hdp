@@ -251,7 +251,7 @@
       force_basic_auth: yes
       return_content: yes
     register: hive_stopped
-    until: hive_stopped.content.find('COMPLETED')
+    until: hive_stopped.content.find('COMPLETED') 
     retries: 10
     delay: 10
     when: hive_output is defined
