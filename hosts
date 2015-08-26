@@ -1,0 +1,15 @@
+[all]
+orenault01.cloud.hortonworks.com
+orenault02.cloud.hortonworks.com
+orenault03.cloud.hortonworks.com
+orenault04.cloud.hortonworks.com
+orenault05.cloud.hortonworks.com
+orenault06.cloud.hortonworks.com
+orenault07.cloud.hortonworks.com
+
+[ambari_server]
+orenault01.cloud.hortonworks.com
+
+[db_server]
+orenault03.cloud.hortonworks.com
+
