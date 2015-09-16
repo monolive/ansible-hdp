@@ -1,15 +1,14 @@
 [all]
-orenault01.cloud.hortonworks.com
-orenault02.cloud.hortonworks.com
-orenault03.cloud.hortonworks.com
-orenault04.cloud.hortonworks.com
-orenault05.cloud.hortonworks.com
-orenault06.cloud.hortonworks.com
-orenault07.cloud.hortonworks.com
+eu-hbase01.cloudapp.net
+eu-hbase02.cloudapp.net
+eu-hbase03.cloudapp.net
+eu-hbase04.cloudapp.net
+eu-hbase05.cloudapp.net
+eu-hbase06.cloudapp.net
 
 [ambari_server]
-orenault01.cloud.hortonworks.com
+eu-hbase01.cloudapp.net
 
 [db_server]
-orenault03.cloud.hortonworks.com
+eu-hbase03.cloudapp.net
 
