@@ -1,0 +1,29 @@
+---
+  - name: install postgres-server
+    yum: name={{ item }} state=present
+    with_items:
+      - postgresql-server
+      - postgresql-jdbc
+
+# Create database & user
+# TODO: move to variable and split to DB server module
+  - name: create & configure oozie DB
+    postgresql_db: name={{ oozie_db }} state=present
+  - name: create & configure oozie user - server fqdn
+    postgresql_user: db=oozie name={{ oozie_user }} password={{ oozie_password }} priv=ALL:ALL login_host={{ login_hostvars[groups['db_server'][0]]['ansible_fqdn'] }} state=present
+    postgresql_user: db=oozie name={{ oozie_user }} password={{ oozie_password }} priv=ALL:ALL login_host=% state=present
+  - name: create & configure ambari DB
+    postgresql_db: name={{ ambari_db }} state=present
+  - name: create & configure ambari user
+    postgresql_user: db=ambari name={{ ambari_user }} password={{ ambari_password }} priv=ALL:ALL login_host={{ login_hostvars[groups['db_server'][0]]['ansible_fqdn'] }} state=present
+    postgresql_user: db=ambari name={{ ambari_user }} password={{ ambari_password }} priv=ALL:ALL login_host=% state=present
+  - name: create & configure hive DB
+    postgresql_db: name={{ hive_db }} state=present
+  - name: create & configure hive user - server fqdn
+    postgresql_user: db=hive name={{ hive_user }} password={{ hive_password }} priv=ALL:ALL login_host={{ login_hostvars[groups['db_server'][0]]['ansible_fqdn'] }} state=present
+    postgresql_user: db=hive name={{ hive_user }} password={{ hive_password }} priv=ALL:ALL login_host=% state=present
+  - name: create & configure ranger DB
+    postgresql_db: name={{ ranger_db }} state=present
+  - name: create & configure ranger user
+    postgresql_user: db=ranger name={{ ranger_user }} password={{ ranger_password }} priv=ALL:ALL login_host={{ login_hostvars[groups['db_server'][0]]['ansible_fqdn'] }} state=present
+    postgresql_user: db=ranger name={{ ranger_user }} password={{ ranger_password }} priv=ALL:ALL login_host=% state=present

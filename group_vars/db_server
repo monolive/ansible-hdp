@@ -1,7 +1,8 @@
 # same DB will be used across the overall env
 # supported DB backend - either mysql or postgresql
-# Currently only MySQL has been tested
-db_flavour: mysql
+# MySQL has been tested w/ CentOS 6 
+# Postgresql has been tested w/ CentOS 7
+db_flavour: postgresql
 
 # Ambari
 ambari_db: ambari
