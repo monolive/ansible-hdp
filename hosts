@@ -1,15 +1,19 @@
 [all]
-orenault01.cloud.hortonworks.com
-orenault02.cloud.hortonworks.com
-orenault03.cloud.hortonworks.com
-orenault04.cloud.hortonworks.com
-orenault05.cloud.hortonworks.com
-orenault06.cloud.hortonworks.com
-orenault07.cloud.hortonworks.com
+lloyds01.cloudapp.net
+lloyds02.cloudapp.net
+lloyds03.cloudapp.net
+lloyds04.cloudapp.net
+lloyds05.cloudapp.net
+lloyds06.cloudapp.net
+lloyds08.cloudapp.net
+lloyds09.cloudapp.net
+lloyds10.cloudapp.net
+lloyds11.cloudapp.net
+lloyds12.cloudapp.net
 
 [ambari_server]
-orenault01.cloud.hortonworks.com
+lloyds01.cloudapp.net
 
 [db_server]
-orenault03.cloud.hortonworks.com
+lloyds03.cloudapp.net
 
