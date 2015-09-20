@@ -1,0 +1,436 @@
+{
+  "configurations" : [
+    {
+      "hive-env" : {
+        "properties" : {
+          "hive_log_dir" : "/var/log/hadoop/hive",
+          "hcat_log_dir" : "/var/log/hadoop/webhcat",
+          "hive_database" : "Existing MySQL Database",
+          "hive_database_type" : "mysql",
+          "hive_database_name" : "hive"
+        }
+      }
+    },
+    {
+      "core-site" : {
+        "properties" : {
+          "hadoop.proxyuser.hive.groups" : "users",
+          "hadoop.proxyuser.hcat.groups" : "users",
+          "hadoop.proxyuser.hdfs.hosts" : "*",
+          "proxyuser_group" : "users",
+          "hadoop.proxyuser.hive.hosts" : "%HOSTGROUP::host_group_4%",
+          "hadoop.proxyuser.hcat.hosts" : "%HOSTGROUP::host_group_4%",
+          "hadoop.proxyuser.hdfs.groups" : "*",
+          "fs.defaultFS" : "hdfs://%HOSTGROUP::host_group_4%:8020"
+        }
+      }
+    },
+    {
+      "kafka-broker" : {
+        "properties_attributes" : { },
+        "properties" : {
+          "log.dirs" : "/mnt/resource/kafka-logs",
+          "zookeeper.connect" : "%HOSTGROUP::host_group_4%:2181,%HOSTGROUP::host_group_5%:2181,%HOSTGROUP::host_group_1%:2181"
+        }
+      }
+    },
+    {
+      "storm-env" : {
+        "properties_attributes" : { },
+        "properties" : {
+          "storm_log_dir" : "/var/log/hadoop/storm",
+        }
+      }
+    },
+    {
+      "yarn-env" : {
+        "properties_attributes" : { },
+        "properties" : {
+          "yarn_log_dir_prefix" : "/var/log/hadoop/yarn",
+        }
+      }
+    },
+    {
+      "hive-site" : {
+        "properties_attributes" : { },
+        "properties" : {
+          "hive.metastore.uris" : "thrift://%HOSTGROUP::host_group_4%:9083",
+          "javax.jdo.option.ConnectionURL" : "jdbc:mysql://%HOSTGROUP::host_group_5%/hive?createDatabaseIfNotExist=true",
+          "hive.server2.enable.doAs" : "false",
+          "javax.jdo.option.ConnectionDriverName" : "com.mysql.jdbc.Driver",
+          "hive.cluster.delegation.token.store.zookeeper.connectString" : "%HOSTGROUP::host_group_4%:2181,%HOSTGROUP::host_group_5%:2181,%HOSTGROUP::host_group_1%:2181",
+          "hive.zookeeper.quorum" : "%HOSTGROUP::host_group_4%:2181,%HOSTGROUP::host_group_5%:2181,%HOSTGROUP::host_group_1%:2181"
+        }
+      }
+    },
+    {
+      "mapred-site" : {
+        "properties_attributes" : { },
+        "properties" : {
+          "mapreduce.jobhistory.address" : "%HOSTGROUP::host_group_5%:10020",
+          "mapreduce.jobhistory.webapp.address" : "%HOSTGROUP::host_group_5%:19888"
+        }
+      }
+    },
+    {
+      "hbase-env" : {
+        "properties_attributes" : { },
+        "properties" : {
+          "hbase_log_dir" : "/var/log/hadoop/hbase"
+        }
+      }
+    },
+    {
+      "mapred-env" : {
+        "properties_attributes" : { },
+        "properties" : {
+          "mapred_log_dir_prefix" : "/var/log/hadoop/mapreduce"
+        }
+      }
+    },
+    {
+      "ams-hbase-env" : {
+        "properties_attributes" : { },
+        "properties" : {
+          "regionserver_xmn_size" : "512m",
+          "hbase_master_heapsize" : "1024m",
+          "hbase_regionserver_heapsize" : "1024m",
+          "hbase_log_dir" : "/var/log/hadoop/ambari-metrics-collector",
+          "hbase_master_xmn_size" : "512m"
+        }
+      }
+    },
+    {
+      "ams-site" : {
+        "properties_attributes" : { },
+        "properties" : {
+          "timeline.metrics.service.operation.mode" : "distributed"
+        }
+      }
+    },
+    {
+      "yarn-site" : {
+        "properties_attributes" : { },
+        "properties" : {
+          "yarn.resourcemanager.webapp.address" : "%HOSTGROUP::host_group_5%:8088",
+          "yarn.log.server.url" : "http://%HOSTGROUP::host_group_5%:19888/jobhistory/logs",
+          "yarn.timeline-service.webapp.address" : "%HOSTGROUP::host_group_5%:8188",
+          "yarn.timeline-service.webapp.https.address" : "%HOSTGROUP::host_group_5%:8190",
+          "yarn.resourcemanager.webapp.https.address" : "%HOSTGROUP::host_group_5%:8090",
+          "yarn.resourcemanager.admin.address" : "%HOSTGROUP::host_group_5%:8141",
+          "yarn.resourcemanager.resource-tracker.address" : "%HOSTGROUP::host_group_5%:8025",
+          "yarn.nodemanager.local-dirs" : "/mnt/resource/yarn/local",
+          "yarn.resourcemanager.hostname" : "%HOSTGROUP::host_group_5%",
+          "yarn.timeline-service.address" : "%HOSTGROUP::host_group_5%:10200",
+          "yarn.timeline-service.leveldb-timeline-store.path" : "/mnt/resource/yarn/timeline",
+          "yarn.nodemanager.log-dirs" : "/mnt/resource/yarn/log",
+          "yarn.timeline-service.leveldb-state-store.path" : "/mnt/resource/yarn/timeline",
+          "yarn.resourcemanager.scheduler.address" : "%HOSTGROUP::host_group_5%:8030",
+          "yarn.resourcemanager.zk-address" : "%HOSTGROUP::host_group_4%:2181,%HOSTGROUP::host_group_5%:2181,%HOSTGROUP::host_group_1%:2181",
+          "yarn.resourcemanager.address" : "%HOSTGROUP::host_group_5%:8050",
+          "hadoop.registry.zk.quorum" : "%HOSTGROUP::host_group_4%:2181,%HOSTGROUP::host_group_5%:2181,%HOSTGROUP::host_group_1%:2181"
+        }
+      }
+    },
+    {
+      "kafka-env" : {
+        "properties_attributes" : { },
+        "properties" : {
+          "kafka_log_dir" : "/var/log/hadoop/kafka"
+        }
+      }
+    },
+    {
+      "zoo.cfg" : {
+        "properties_attributes" : { },
+        "properties" : {
+          "dataDir" : "/mnt/resource/zookeeper"
+        }
+      }
+    },
+    {
+      "hadoop-env" : {
+        "properties_attributes" : { },
+        "properties" : {
+          "hdfs_log_dir_prefix" : "/var/log/hadoop/hdfs"
+        }
+      }
+    },
+    {
+      "zookeeper-env" : {
+        "properties_attributes" : { },
+        "properties" : {
+          "zk_log_dir" : "/var/log/hadoop/zookeeper"
+        }
+      }
+    },
+    {
+      "hbase-site" : {
+        "properties_attributes" : { },
+        "properties" : {
+          "hbase.rootdir" : "hdfs://%HOSTGROUP::host_group_4%:8020/apps/hbase/data",
+          "hbase.zookeeper.quorum" : "%HOSTGROUP::host_group_4%,%HOSTGROUP::host_group_5%,%HOSTGROUP::host_group_1%"
+        }
+      }
+    },
+    {
+      "ams-env" : {
+        "properties_attributes" : { },
+        "properties" : {
+          "metrics_monitor_log_dir" : "/var/log/hadoop/ambari-metrics-monitor",
+          "metrics_collector_log_dir" : "/var/log/hadoop/ambari-metrics-collector"
+        }
+      }
+    },
+    {
+      "hdfs-site" : {
+        "properties" : {
+          "dfs.datanode.data.dir" : "/mnt/resource/hdfs/data",
+          "dfs.namenode.https-address" : "%HOSTGROUP::host_group_4%:50470",
+          "dfs.journalnode.edits.dir" : "/hadoop/hdfs/journalnode",
+          "dfs.namenode.checkpoint.dir" : "/mnt/resource/hdfs/namesecondary",
+          "dfs.namenode.secondary.http-address" : "%HOSTGROUP::host_group_5%:50090",
+          "dfs.namenode.http-address" : "%HOSTGROUP::host_group_4%:50070",
+          "dfs.namenode.rpc-address" : "%HOSTGROUP::host_group_4%:8020",
+          "dfs.namenode.name.dir" : "/mnt/resource/hdfs/namenode"
+        }
+      }
+    },
+    {
+      "storm-site" : {
+        "properties_attributes" : { },
+        "properties" : {
+          "storm.zookeeper.servers" : "['%HOSTGROUP::host_group_4%','%HOSTGROUP::host_group_5%','%HOSTGROUP::host_group_1%']",
+          "storm.local.dir" : "/mnt/resource/storm",
+          "nimbus.seeds" : "['%HOSTGROUP::host_group_4%']"
+        }
+      }
+    },
+    {
+      "webhcat-site" : {
+        "properties_attributes" : { },
+        "properties" : {
+          "templeton.zookeeper.hosts" : "%HOSTGROUP::host_group_4%:2181,%HOSTGROUP::host_group_5%:2181,%HOSTGROUP::host_group_1%:2181"
+        }
+      }
+    },
+    {
+      "flume-env" : {
+        "properties_attributes" : { },
+        "properties" : {
+          "flume_log_dir" : "/var/log/hadoop/flume"
+        }
+      }
+    },
+    {
+      "ams-hbase-site" : {
+        "properties_attributes" : { },
+        "properties" : {
+          "hbase.cluster.distributed" : "true",
+          "hbase.rootdir" : "hdfs://%HOSTGROUP::host_group_4%:8020/amshbase"
+        }
+      }
+    }
+  ],
+  "host_groups" : [
+    {
+      "name" : "host_group_1",
+      "configurations" : [ ],
+      "components" : [
+        {
+          "name" : "ZOOKEEPER_SERVER"
+        },
+        {
+          "name" : "ZOOKEEPER_CLIENT"
+        },
+        {
+          "name" : "PIG"
+        },
+        {
+          "name" : "HBASE_CLIENT"
+        },
+        {
+          "name" : "STORM_UI_SERVER"
+        },
+        {
+          "name" : "HCAT"
+        },
+        {
+          "name" : "KNOX_GATEWAY"
+        },
+        {
+          "name" : "METRICS_MONITOR"
+        },
+        {
+          "name" : "TEZ_CLIENT"
+        },
+        {
+          "name" : "AMBARI_SERVER"
+        },
+        {
+          "name" : "SQOOP"
+        },
+        {
+          "name" : "HIVE_CLIENT"
+        },
+        {
+          "name" : "HDFS_CLIENT"
+        },
+        {
+          "name" : "YARN_CLIENT"
+        },
+        {
+          "name" : "MAPREDUCE2_CLIENT"
+        }
+      ],
+      "cardinality" : "1"
+    },
+    {
+      "name" : "host_group_2",
+      "configurations" : [ ],
+      "components" : [
+        {
+          "name" : "HBASE_REGIONSERVER"
+        },
+        {
+          "name" : "NODEMANAGER"
+        },
+        {
+          "name" : "METRICS_MONITOR"
+        },
+        {
+          "name" : "DATANODE"
+        }
+      ],
+      "cardinality" : "4"
+    },
+    {
+      "name" : "host_group_3",
+      "configurations" : [ ],
+      "components" : [
+        {
+          "name" : "HBASE_REGIONSERVER"
+        },
+        {
+          "name" : "NODEMANAGER"
+        },
+        {
+          "name" : "METRICS_COLLECTOR"
+        },
+        {
+          "name" : "METRICS_MONITOR"
+        },
+        {
+          "name" : "DATANODE"
+        }
+      ],
+      "cardinality" : "1"
+    },
+    {
+      "name" : "host_group_4",
+      "configurations" : [ ],
+      "components" : [
+        {
+          "name" : "ZOOKEEPER_SERVER"
+        },
+        {
+          "name" : "PIG"
+        },
+        {
+          "name" : "ZOOKEEPER_CLIENT"
+        },
+        {
+          "name" : "HIVE_SERVER"
+        },
+        {
+          "name" : "NAMENODE"
+        },
+        {
+          "name" : "METRICS_MONITOR"
+        },
+        {
+          "name" : "TEZ_CLIENT"
+        },
+        {
+          "name" : "HIVE_METASTORE"
+        },
+        {
+          "name" : "HDFS_CLIENT"
+        },
+        {
+          "name" : "YARN_CLIENT"
+        },
+        {
+          "name" : "MAPREDUCE2_CLIENT"
+        },
+        {
+          "name" : "WEBHCAT_SERVER"
+        },
+        {
+          "name" : "NIMBUS"
+        }
+      ],
+      "cardinality" : "1"
+    },
+    {
+      "name" : "host_group_5",
+      "configurations" : [ ],
+      "components" : [
+        {
+          "name" : "ZOOKEEPER_SERVER"
+        },
+        {
+          "name" : "HISTORYSERVER"
+        },
+        {
+          "name" : "APP_TIMELINE_SERVER"
+        },
+        {
+          "name" : "HBASE_MASTER"
+        },
+        {
+          "name" : "HDFS_CLIENT"
+        },
+        {
+          "name" : "METRICS_MONITOR"
+        },
+        {
+          "name" : "SECONDARY_NAMENODE"
+        },
+        {
+          "name" : "TEZ_CLIENT"
+        },
+        {
+          "name" : "DRPC_SERVER"
+        },
+        {
+          "name" : "RESOURCEMANAGER"
+        }
+      ],
+      "cardinality" : "1"
+    },
+    {
+      "name" : "host_group_6",
+      "configurations" : [ ],
+      "components" : [
+        {
+          "name" : "KAFKA_BROKER"
+        },
+        {
+          "name" : "SUPERVISOR"
+        },
+        {
+          "name" : "METRICS_MONITOR"
+        },
+        {
+          "name" : "FLUME_HANDLER"
+        }
+      ],
+      "cardinality" : "3"
+    }
+  ],
+  "Blueprints" : {
+    "stack_name" : "HDP",
+    "stack_version" : "2.3"
+  }
+}
