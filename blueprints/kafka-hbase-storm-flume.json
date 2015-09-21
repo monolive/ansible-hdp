@@ -5,7 +5,7 @@
         "properties" : {
           "hive_log_dir" : "/var/log/hadoop/hive",
           "hcat_log_dir" : "/var/log/hadoop/webhcat",
-          "hive_database" : "Existing MySQL Database",
+          "hive_database" : "New MySQL Database",
           "hive_database_type" : "mysql",
           "hive_database_name" : "hive"
         }
@@ -18,10 +18,10 @@
           "hadoop.proxyuser.hcat.groups" : "users",
           "hadoop.proxyuser.hdfs.hosts" : "*",
           "proxyuser_group" : "users",
-          "hadoop.proxyuser.hive.hosts" : "%HOSTGROUP::host_group_4%",
-          "hadoop.proxyuser.hcat.hosts" : "%HOSTGROUP::host_group_4%",
+          "hadoop.proxyuser.hive.hosts" : "%HOSTGROUP::master_1%",
+          "hadoop.proxyuser.hcat.hosts" : "%HOSTGROUP::master_1%",
           "hadoop.proxyuser.hdfs.groups" : "*",
-          "fs.defaultFS" : "hdfs://%HOSTGROUP::host_group_4%:8020"
+          "fs.defaultFS" : "hdfs://%HOSTGROUP::master_1%:8020"
         }
       }
     },
@@ -29,8 +29,8 @@
       "kafka-broker" : {
         "properties_attributes" : { },
         "properties" : {
-          "log.dirs" : "/mnt/resource/kafka-logs",
-          "zookeeper.connect" : "%HOSTGROUP::host_group_4%:2181,%HOSTGROUP::host_group_5%:2181,%HOSTGROUP::host_group_1%:2181"
+          "log.dirs" : "/mnt/hadoop/kafka-logs",
+          "zookeeper.connect" : "%HOSTGROUP::master_1%:2181,%HOSTGROUP::master_2%:2181,%HOSTGROUP::client_1%:2181"
         }
       }
     },
@@ -54,12 +54,14 @@
       "hive-site" : {
         "properties_attributes" : { },
         "properties" : {
-          "hive.metastore.uris" : "thrift://%HOSTGROUP::host_group_4%:9083",
-          "javax.jdo.option.ConnectionURL" : "jdbc:mysql://%HOSTGROUP::host_group_5%/hive?createDatabaseIfNotExist=true",
+          "hive.metastore.uris" : "thrift://%HOSTGROUP::master_1%:9083",
+          "javax.jdo.option.ConnectionURL" : "jdbc:mysql://%HOSTGROUP::master_2%/hive?createDatabaseIfNotExist=true",
           "hive.server2.enable.doAs" : "false",
           "javax.jdo.option.ConnectionDriverName" : "com.mysql.jdbc.Driver",
-          "hive.cluster.delegation.token.store.zookeeper.connectString" : "%HOSTGROUP::host_group_4%:2181,%HOSTGROUP::host_group_5%:2181,%HOSTGROUP::host_group_1%:2181",
-          "hive.zookeeper.quorum" : "%HOSTGROUP::host_group_4%:2181,%HOSTGROUP::host_group_5%:2181,%HOSTGROUP::host_group_1%:2181"
+          "javax.jdo.option.ConnectionPassword": "hadoop",
+          "javax.jdo.option.ConnectionUserName": "hive",
+          "hive.cluster.delegation.token.store.zookeeper.connectString" : "%HOSTGROUP::master_1%:2181,%HOSTGROUP::master_2%:2181,%HOSTGROUP::client_1%:2181",
+          "hive.zookeeper.quorum" : "%HOSTGROUP::master_1%:2181,%HOSTGROUP::master_2%:2181,%HOSTGROUP::client_1%:2181"
         }
       }
     },
@@ -67,8 +69,8 @@
       "mapred-site" : {
         "properties_attributes" : { },
         "properties" : {
-          "mapreduce.jobhistory.address" : "%HOSTGROUP::host_group_5%:10020",
-          "mapreduce.jobhistory.webapp.address" : "%HOSTGROUP::host_group_5%:19888"
+          "mapreduce.jobhistory.address" : "%HOSTGROUP::master_2%:10020",
+          "mapreduce.jobhistory.webapp.address" : "%HOSTGROUP::master_2%:19888"
         }
       }
     },
@@ -112,23 +114,23 @@
       "yarn-site" : {
         "properties_attributes" : { },
         "properties" : {
-          "yarn.resourcemanager.webapp.address" : "%HOSTGROUP::host_group_5%:8088",
-          "yarn.log.server.url" : "http://%HOSTGROUP::host_group_5%:19888/jobhistory/logs",
-          "yarn.timeline-service.webapp.address" : "%HOSTGROUP::host_group_5%:8188",
-          "yarn.timeline-service.webapp.https.address" : "%HOSTGROUP::host_group_5%:8190",
-          "yarn.resourcemanager.webapp.https.address" : "%HOSTGROUP::host_group_5%:8090",
-          "yarn.resourcemanager.admin.address" : "%HOSTGROUP::host_group_5%:8141",
-          "yarn.resourcemanager.resource-tracker.address" : "%HOSTGROUP::host_group_5%:8025",
-          "yarn.nodemanager.local-dirs" : "/mnt/resource/yarn/local",
-          "yarn.resourcemanager.hostname" : "%HOSTGROUP::host_group_5%",
-          "yarn.timeline-service.address" : "%HOSTGROUP::host_group_5%:10200",
-          "yarn.timeline-service.leveldb-timeline-store.path" : "/mnt/resource/yarn/timeline",
-          "yarn.nodemanager.log-dirs" : "/mnt/resource/yarn/log",
-          "yarn.timeline-service.leveldb-state-store.path" : "/mnt/resource/yarn/timeline",
-          "yarn.resourcemanager.scheduler.address" : "%HOSTGROUP::host_group_5%:8030",
-          "yarn.resourcemanager.zk-address" : "%HOSTGROUP::host_group_4%:2181,%HOSTGROUP::host_group_5%:2181,%HOSTGROUP::host_group_1%:2181",
-          "yarn.resourcemanager.address" : "%HOSTGROUP::host_group_5%:8050",
-          "hadoop.registry.zk.quorum" : "%HOSTGROUP::host_group_4%:2181,%HOSTGROUP::host_group_5%:2181,%HOSTGROUP::host_group_1%:2181"
+          "yarn.resourcemanager.webapp.address" : "%HOSTGROUP::master_2%:8088",
+          "yarn.log.server.url" : "http://%HOSTGROUP::master_2%:19888/jobhistory/logs",
+          "yarn.timeline-service.webapp.address" : "%HOSTGROUP::master_2%:8188",
+          "yarn.timeline-service.webapp.https.address" : "%HOSTGROUP::master_2%:8190",
+          "yarn.resourcemanager.webapp.https.address" : "%HOSTGROUP::master_2%:8090",
+          "yarn.resourcemanager.admin.address" : "%HOSTGROUP::master_2%:8141",
+          "yarn.resourcemanager.resource-tracker.address" : "%HOSTGROUP::master_2%:8025",
+          "yarn.nodemanager.local-dirs" : "/mnt/hadoop/yarn/local",
+          "yarn.resourcemanager.hostname" : "%HOSTGROUP::master_2%",
+          "yarn.timeline-service.address" : "%HOSTGROUP::master_2%:10200",
+          "yarn.timeline-service.leveldb-timeline-store.path" : "/mnt/hadoop/yarn/timeline",
+          "yarn.nodemanager.log-dirs" : "/mnt/hadoop/yarn/log",
+          "yarn.timeline-service.leveldb-state-store.path" : "/mnt/hadoop/yarn/timeline",
+          "yarn.resourcemanager.scheduler.address" : "%HOSTGROUP::master_2%:8030",
+          "yarn.resourcemanager.zk-address" : "%HOSTGROUP::master_1%:2181,%HOSTGROUP::master_2%:2181,%HOSTGROUP::client_1%:2181",
+          "yarn.resourcemanager.address" : "%HOSTGROUP::master_2%:8050",
+          "hadoop.registry.zk.quorum" : "%HOSTGROUP::master_1%:2181,%HOSTGROUP::master_2%:2181,%HOSTGROUP::client_1%:2181"
         }
       }
     },
@@ -144,7 +146,7 @@
       "zoo.cfg" : {
         "properties_attributes" : { },
         "properties" : {
-          "dataDir" : "/mnt/resource/zookeeper"
+          "dataDir" : "/mnt/hadoop/zookeeper"
         }
       }
     },
@@ -168,8 +170,8 @@
       "hbase-site" : {
         "properties_attributes" : { },
         "properties" : {
-          "hbase.rootdir" : "hdfs://%HOSTGROUP::host_group_4%:8020/apps/hbase/data",
-          "hbase.zookeeper.quorum" : "%HOSTGROUP::host_group_4%,%HOSTGROUP::host_group_5%,%HOSTGROUP::host_group_1%"
+          "hbase.rootdir" : "hdfs://%HOSTGROUP::master_1%:8020/apps/hbase/data",
+          "hbase.zookeeper.quorum" : "%HOSTGROUP::master_1%,%HOSTGROUP::master_2%,%HOSTGROUP::client_1%"
         }
       }
     },
@@ -185,14 +187,14 @@
     {
       "hdfs-site" : {
         "properties" : {
-          "dfs.datanode.data.dir" : "/mnt/resource/hdfs/data",
-          "dfs.namenode.https-address" : "%HOSTGROUP::host_group_4%:50470",
+          "dfs.datanode.data.dir" : "/mnt/hadoop/hdfs/data",
+          "dfs.namenode.https-address" : "%HOSTGROUP::master_1%:50470",
           "dfs.journalnode.edits.dir" : "/hadoop/hdfs/journalnode",
-          "dfs.namenode.checkpoint.dir" : "/mnt/resource/hdfs/namesecondary",
-          "dfs.namenode.secondary.http-address" : "%HOSTGROUP::host_group_5%:50090",
-          "dfs.namenode.http-address" : "%HOSTGROUP::host_group_4%:50070",
-          "dfs.namenode.rpc-address" : "%HOSTGROUP::host_group_4%:8020",
-          "dfs.namenode.name.dir" : "/mnt/resource/hdfs/namenode"
+          "dfs.namenode.checkpoint.dir" : "/mnt/hadoop/hdfs/namesecondary",
+          "dfs.namenode.secondary.http-address" : "%HOSTGROUP::master_2%:50090",
+          "dfs.namenode.http-address" : "%HOSTGROUP::master_1%:50070",
+          "dfs.namenode.rpc-address" : "%HOSTGROUP::master_1%:8020",
+          "dfs.namenode.name.dir" : "/mnt/hadoop/hdfs/namenode"
         }
       }
     },
@@ -200,9 +202,9 @@
       "storm-site" : {
         "properties_attributes" : { },
         "properties" : {
-          "storm.zookeeper.servers" : "['%HOSTGROUP::host_group_4%','%HOSTGROUP::host_group_5%','%HOSTGROUP::host_group_1%']",
-          "storm.local.dir" : "/mnt/resource/storm",
-          "nimbus.seeds" : "['%HOSTGROUP::host_group_4%']"
+          "storm.zookeeper.servers" : "['%HOSTGROUP::master_1%','%HOSTGROUP::master_2%','%HOSTGROUP::client_1%']",
+          "storm.local.dir" : "/mnt/hadoop/storm",
+          "nimbus.seeds" : "['%HOSTGROUP::master_1%']"
         }
       }
     },
@@ -210,7 +212,7 @@
       "webhcat-site" : {
         "properties_attributes" : { },
         "properties" : {
-          "templeton.zookeeper.hosts" : "%HOSTGROUP::host_group_4%:2181,%HOSTGROUP::host_group_5%:2181,%HOSTGROUP::host_group_1%:2181"
+          "templeton.zookeeper.hosts" : "%HOSTGROUP::master_1%:2181,%HOSTGROUP::master_2%:2181,%HOSTGROUP::client_1%:2181"
         }
       }
     },
@@ -227,14 +229,14 @@
         "properties_attributes" : { },
         "properties" : {
           "hbase.cluster.distributed" : "true",
-          "hbase.rootdir" : "hdfs://%HOSTGROUP::host_group_4%:8020/amshbase"
+          "hbase.rootdir" : "hdfs://%HOSTGROUP::master_1%:8020/amshbase"
         }
       }
     }
   ],
   "host_groups" : [
     {
-      "name" : "host_group_1",
+      "name" : "client_1",
       "configurations" : [ ],
       "components" : [
         {
@@ -286,7 +288,7 @@
       "cardinality" : "1"
     },
     {
-      "name" : "host_group_2",
+      "name" : "slave_1",
       "configurations" : [ ],
       "components" : [
         {
@@ -305,7 +307,7 @@
       "cardinality" : "4"
     },
     {
-      "name" : "host_group_3",
+      "name" : "slave_2",
       "configurations" : [ ],
       "components" : [
         {
@@ -327,7 +329,7 @@
       "cardinality" : "1"
     },
     {
-      "name" : "host_group_4",
+      "name" : "master_1",
       "configurations" : [ ],
       "components" : [
         {
@@ -373,7 +375,7 @@
       "cardinality" : "1"
     },
     {
-      "name" : "host_group_5",
+      "name" : "master_2",
       "configurations" : [ ],
       "components" : [
         {
@@ -404,13 +406,16 @@
           "name" : "DRPC_SERVER"
         },
         {
+          "name": "MYSQL_SERVER"
+        },
+        {
           "name" : "RESOURCEMANAGER"
         }
       ],
       "cardinality" : "1"
     },
     {
-      "name" : "host_group_6",
+      "name" : "slave_3",
       "configurations" : [ ],
       "components" : [
         {
