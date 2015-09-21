@@ -9,7 +9,7 @@ hdp_utils: 1.1.0.20
 
 cluster_name: hdptest
 
-java_home : /usr/lib/jvm/jre-1.7.0-openjdk.x86_64/
+java_home : /usr/lib/jvm/java-1.7.0-openjdk.x86_64
 
 #log_folder: /var/log/hadoop
 #pid_folder: /var/run/hadoop
