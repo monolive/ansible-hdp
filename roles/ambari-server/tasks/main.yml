@@ -74,7 +74,7 @@
       body_format: json
  
   - name: copy blueprint
-    copy: src=../../../blueprints/hdp-2.3-hbase-noha.json dest=/tmp/blueprint.json
+    copy: src=../../../blueprints/{{ blueprint }} dest=/tmp/blueprint.json
     register: blueprint
 
   - name: copy host-mapping

@@ -9,6 +9,8 @@ hdp_utils: 1.1.0.20
 
 cluster_name: hdptest
 
+blueprint : kafka-hbase-storm-flume.json
+
 java_home : /usr/lib/jvm/java-1.7.0-openjdk.x86_64
 
 #log_folder: /var/log/hadoop
