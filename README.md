@@ -14,6 +14,5 @@ In case of failure, you may want to delete ambari-server package / delete /tmp/b
 
 # TODO
 - Implement postgresql
-- Implement kerberos
 - Implement Ranger
 - Generate a host map based upon hosts config
