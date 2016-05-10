@@ -1,20 +1,20 @@
 [all]
-lloyds1.cloudapp.net
-lloyds2.cloudapp.net
-lloyds3.cloudapp.net
-lloyds4.cloudapp.net
-lloyds5.cloudapp.net
-lloyds6.cloudapp.net
-lloyds7.cloudapp.net
-lloyds8.cloudapp.net
-lloyds9.cloudapp.net
-lloyds10.cloudapp.net
-lloyds11.cloudapp.net
-lloyds12.cloudapp.net
+hawq01.cloudapp.net
+hawq02.cloudapp.net
+hawq03.cloudapp.net
+hawq04.cloudapp.net
+hawq05.cloudapp.net
+hawq06.cloudapp.net
+hawq07.cloudapp.net
+hawq08.cloudapp.net
+hawq09.cloudapp.net
+hawq10.cloudapp.net
+hawq11.cloudapp.net
+hawq12.cloudapp.net
 
 [ambari_server]
-lloyds1.cloudapp.net
+hawq12.cloudapp.net
 
 [db_server]
-lloyds3.cloudapp.net
+hawq11.cloudapp.net
 

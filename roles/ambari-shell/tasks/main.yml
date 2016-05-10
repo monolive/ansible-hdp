@@ -1,0 +1,13 @@
+---
+  - name: copy grab ambari-shell
+    copy: src=latest-snap.sh dest=/tmp/latest-snap.sh mode=0755
+    
+  - name: grab ambari-shell
+    shell: /tmp/latest-snap.sh
+
+  - name: copy blueprint
+    copy: src=../../../blueprints/{{ blueprint }} dest=/tmp/blueprint.json
+    register: blueprint
+
+
+#  - name: run ambari-shell

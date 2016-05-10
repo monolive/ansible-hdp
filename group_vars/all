@@ -9,7 +9,7 @@ hdp_utils: 1.1.0.20
 
 cluster_name: hdptest
 
-blueprint : kafka-hbase-storm-flume.json
+blueprint : hdp-2.3-hbase-noha.json
 
 java_home : /usr/lib/jvm/java-1.7.0-openjdk.x86_64
 

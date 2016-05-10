@@ -18,3 +18,4 @@
   sudo: yes
   roles:
     - ambari-server
+    - ambari-shell
