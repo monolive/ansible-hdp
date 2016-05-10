@@ -1,21 +1,21 @@
 ---
 - hosts: all
-  user: orenault
-  sudo: yes
+  become_user: root
+  become: yes
   roles:
     - prep
     - ambari-agent
     - users
 
 - hosts: db_server
-  user: orenault
-  sudo: yes
+  become_user: root
+  become: yes
   roles:
     - db-server
 
 - hosts: ambari_server
-  user: orenault
-  sudo: yes
+  become_user: root
+  become: yes
   roles:
     - ambari-server
     - ambari-shell
