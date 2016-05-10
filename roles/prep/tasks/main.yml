@@ -71,5 +71,5 @@
                   port=22
                   delay=15
                   timeout=600
-    sudo: false
+    become: false
     when: ambari_installed|changed
