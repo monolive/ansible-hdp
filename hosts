@@ -9,12 +9,10 @@ hawq07.cloudapp.net
 hawq08.cloudapp.net
 hawq09.cloudapp.net
 hawq10.cloudapp.net
-hawq11.cloudapp.net
-hawq12.cloudapp.net
 
 [ambari_server]
-hawq12.cloudapp.net
+hawq10.cloudapp.net
 
 [db_server]
-hawq11.cloudapp.net
+hawq09.cloudapp.net
 
